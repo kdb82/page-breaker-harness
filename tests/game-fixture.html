@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Siege test range</title>
+  <style>
+    body { margin: 0; color: #203039; background: #f4f7f2; font: 18px/1.5 system-ui, sans-serif; }
+    main { max-width: 920px; margin: auto; padding: 36px 24px 120px; }
+    h1 { margin: 0 0 12px; font-size: 36px; }
+    .intro { max-width: 680px; }
+    .range { position: relative; min-height: 520px; border: 3px dashed #b9d1c2; margin-top: 30px; padding: 24px; }
+    .range p { width: max-content; max-width: 90%; margin: 0; padding: 5px 8px; background: #fff5c4; }
+    .range img { position: absolute; right: 6%; bottom: 105px; width: 210px; height: 120px; }
+    .range .low { position: absolute; left: 7%; bottom: 65px; background: #cbeede; }
+    .range .middle { position: absolute; left: 26%; bottom: 170px; background: #d9e8fc; }
+    .range .masked { position: absolute; left: 7%; top: 115px; width: 190px; height: 70px; background: #da91d5; -webkit-mask-image: linear-gradient(90deg, black 0 70%, transparent 100%); mask-image: linear-gradient(90deg, black 0 70%, transparent 100%); }
+    .range .layered-mask { position: absolute; left: 7%; top: 205px; width: 190px; height: 70px; background: #a3a4ee; -webkit-mask-image: linear-gradient(90deg, black 0 40%, transparent 40%), linear-gradient(90deg, transparent 60%, black 60%); mask-image: linear-gradient(90deg, black 0 40%, transparent 40%), linear-gradient(90deg, transparent 60%, black 60%); }
+    .range .sized-mask { position: absolute; left: 7%; top: 295px; width: 190px; height: 70px; background: #f3a165; -webkit-mask-image: linear-gradient(black, black); mask-image: linear-gradient(black, black); -webkit-mask-size: 40px 40px; mask-size: 40px 40px; -webkit-mask-position: 12px 8px; mask-position: 12px 8px; -webkit-mask-repeat: repeat; mask-repeat: repeat; }
+    .range .luminance-mask { position: absolute; left: 7%; top: 385px; width: 190px; height: 70px; background: #83c6e8; -webkit-mask-image: linear-gradient(white, white); mask-image: linear-gradient(white, white); mask-mode: luminance; }
+    .range .origin-mask { position: absolute; left: 32%; top: 385px; width: 170px; height: 50px; padding: 12px; border: 8px solid #b27425; background: #f8d781; -webkit-mask-image: linear-gradient(white, white); mask-image: linear-gradient(white, white); -webkit-mask-origin: content-box; mask-origin: content-box; -webkit-mask-clip: border-box; mask-clip: border-box; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+    .range img.pointer-free { left: 51%; top: 120px; right: auto; bottom: auto; width: 130px; height: 75px; pointer-events: none; }
+    .range button { position: absolute; left: 50%; bottom: 18px; padding: 8px 12px; font: inherit; }
+    .lower { min-height: 750px; padding-top: 90px; }
+    .lower blockquote { display: inline-block; margin: 110px 0 0 12%; padding: 16px; background: #e6d9fc; }
+    .lower .tile { display: inline-block; margin: 160px 0 0 15%; padding: 24px 45px; background: #ffd2c3; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Page Siege test range</h1>
+    <p class="intro">Load the extension, then click its toolbar icon. Jump onto the labels and the image. Shoot each target, scroll, collect a crate, and switch the extension off to restore the page.</p>
+    <section class="range" aria-label="Training range">
+      <p>High text platform</p>
+      <p class="middle">Middle text platform</p>
+      <p class="low">Low text platform</p>
+      <div class="masked" aria-label="Fading mask target"></div>
+      <div class="layered-mask" aria-label="Two layer additive mask target"></div>
+      <div class="sized-mask" aria-label="Repeating small mask target"></div>
+      <div class="luminance-mask" aria-label="Luminance mask target"></div>
+      <div class="origin-mask" aria-label="Content box mask target"></div>
+      <img class="pointer-free" src="target.svg" alt="Pointer transparent target image">
+      <img src="target.svg" alt="Pixel target image">
+      <button id="fixture-button" type="button">Normal page button: <span id="clicks">0</span></button>
+    </section>
+    <section class="lower">
+      <h2>Scroll test</h2>
+      <p>This paragraph and the shapes below should become new platforms when scrolled into view.</p>
+      <blockquote>Blockquote landing spot</blockquote>
+      <div class="tile">Colored tile</div>
+    </section>
+  </main>
+  <script>
+    let clicks = 0;
+    document.querySelector('#fixture-button').addEventListener('click', () => {
+      document.querySelector('#clicks').textContent = String(++clicks);
+    });
+  </script>
+</body>
+</html>
